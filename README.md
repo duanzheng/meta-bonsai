@@ -28,6 +28,17 @@ This package is intended to be used via `npx meta-bonsai` or as a library depend
 
 If no marked nodes are found, the CLI prints a friendly message and exits normally.
 
+### npx output example
+
+When marked nodes exist, it prints a pruned ASCII tree:
+
+```
+project
+├── src // core
+│   └── main.ts // entry
+└── README.md // docs
+```
+
 ## Marking Rules
 
 - Directory: create `__meta.json` under the directory and set `desc` or `name`
@@ -45,6 +56,25 @@ Exports are available from the package root:
 - `parseMetaComment`: parse `@meta` from a file prefix
 - `parseMetaJson`: parse `__meta.json`
 - `MetaNode`, `IgnoreMatcher`: exported types
+
+### Code example
+
+```js
+import { scanAndPruneTree, renderTree, createIgnoreMatcher } from "meta-bonsai";
+
+// Basic usage: scan a directory and print
+const tree = await scanAndPruneTree("./src");
+if (tree) {
+  console.log(renderTree(tree));
+}
+
+// With custom ignore rules (.gitignore + extra patterns)
+const ignoreMatcher = await createIgnoreMatcher(".", ["dist", "coverage"]);
+const tree2 = await scanAndPruneTree(".", { ignoreMatcher });
+if (tree2) {
+  console.log(renderTree(tree2));
+}
+```
 
 ## Development
 

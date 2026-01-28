@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { cac } from "cac";
 import { resolve } from "node:path";
 import { createIgnoreMatcher } from "./core/ignore";
@@ -19,7 +20,7 @@ async function run(dir: string | undefined, options: CliOptions) {
   const target = resolve(process.cwd(), dir ?? ".");
   const ignoreMatcher = await createIgnoreMatcher(
     target,
-    normalizeIgnore(options.ignore)
+    normalizeIgnore(options.ignore),
   );
   const tree = await scanAndPruneTree(target, { ignoreMatcher });
   if (!tree) {

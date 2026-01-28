@@ -1,6 +1,6 @@
 {
   "name": "meta-bonsai",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Generate a pruned ASCII tree of marked project structure.",
   "type": "module",
   "license": "MIT",

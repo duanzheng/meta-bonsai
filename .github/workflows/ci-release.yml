@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+permissions:
+  id-token: write # 供 npm Trusted publishing (OIDC) 使用
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -11,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
           cache: "npm"
       - run: npm ci
       - run: npm test
@@ -23,11 +27,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm run build
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

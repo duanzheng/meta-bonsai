@@ -1,9 +1,13 @@
 {
   "name": "meta-bonsai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate a pruned ASCII tree of marked project structure.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duanzheng/meta-bonsai"
+  },
   "bin": {
     "meta-bonsai": "./dist/cli.js"
   },

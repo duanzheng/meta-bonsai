@@ -10,11 +10,11 @@ meta-bonsai generates a pruned ASCII tree that highlights only developer-marked 
 
 ## Features
 
-- Scans with dree and prunes unmarked branches
-- Marks directories by `__meta.json` and files by `/** @meta ... */`
-- Reads at most the first 1000 bytes per file for performance
-- Respects `.gitignore` and CLI `--ignore` patterns
-- Works as both a CLI and a library
+- Generate a pruned ASCII tree that focuses on marked files and directories
+- Preserve ancestor paths so the output stays navigable and keeps context
+- Keep trees readable for sharing in docs, reviews, and discussions
+- Respect `.gitignore` and extra ignore patterns to match real project workflows
+- Provide both a CLI and a library API for scripting and integration
 
 ## Installation
 

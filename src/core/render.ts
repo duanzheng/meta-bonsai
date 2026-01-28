@@ -1,15 +1,15 @@
 import type { MetaNode } from "./tree";
 
+type RenderOptions = {
+  includeRoot?: boolean;
+};
+
 function formatLabel(node: MetaNode): string {
   const suffix = node.description ? ` // ${node.description}` : "";
   return `${node.name}${suffix}`;
 }
 
-function renderChildren(
-  nodes: MetaNode[],
-  prefix: string,
-  lines: string[]
-) {
+function renderChildren(nodes: MetaNode[], prefix: string, lines: string[]) {
   const lastIndex = nodes.length - 1;
   nodes.forEach((node, index) => {
     const isLast = index === lastIndex;
@@ -22,10 +22,30 @@ function renderChildren(
   });
 }
 
-export function renderTree(tree: MetaNode): string {
-  const lines = [formatLabel(tree)];
+function renderRootChildren(nodes: MetaNode[], lines: string[]) {
+  nodes.forEach((node) => {
+    lines.push(formatLabel(node));
+    if (node.children && node.children.length > 0) {
+      renderChildren(node.children, "    ", lines);
+    }
+  });
+}
+
+export function renderTree(
+  tree: MetaNode,
+  options: RenderOptions = {},
+): string {
+  const includeRoot = options.includeRoot ?? false;
+  const lines: string[] = [];
+  if (includeRoot) {
+    lines.push(formatLabel(tree));
+    if (tree.children && tree.children.length > 0) {
+      renderChildren(tree.children, "", lines);
+    }
+    return lines.join("\n");
+  }
   if (tree.children && tree.children.length > 0) {
-    renderChildren(tree.children, "", lines);
+    renderRootChildren(tree.children, lines);
   }
   return lines.join("\n");
 }

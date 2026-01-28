@@ -25,18 +25,18 @@ This package is intended to be used via `npx meta-bonsai` or as a library depend
 - Run in the current directory: `npx meta-bonsai`
 - Run with a target path: `npx meta-bonsai ./src`
 - Ignore paths (repeatable or comma-separated): `--ignore dist --ignore node_modules,coverage`
+- Include project root in output: `--include-root`
 
 If no marked nodes are found, the CLI prints a friendly message and exits normally.
 
 ### npx output example
 
-When marked nodes exist, it prints a pruned ASCII tree:
+When marked nodes exist, it prints a pruned ASCII tree (root excluded by default):
 
 ```
-project
-├── src // core
-│   └── main.ts // entry
-└── README.md // docs
+src // core
+    └── main.ts // entry
+README.md // docs
 ```
 
 ## Marking Rules
@@ -83,7 +83,7 @@ If there is a newline or any content before the comment, it will not match.
 Exports are available from the package root:
 
 - `scanAndPruneTree`: scan a directory and return a pruned tree
-- `renderTree`: render a pruned tree as ASCII
+- `renderTree`: render a pruned tree as ASCII (root excluded by default; use `{ includeRoot: true }` to include)
 - `createIgnoreMatcher`: build an ignore matcher from `.gitignore` plus CLI patterns
 - `parseMetaComment`: parse `@meta` from a file prefix
 - `parseMetaJson`: parse `__meta.json`

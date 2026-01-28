@@ -8,6 +8,7 @@ import { scanAndPruneTree } from "./core/tree";
 
 type CliOptions = {
   ignore?: string | string[];
+  includeRoot?: boolean;
 };
 
 function startSpinner(message: string): (finalMessage?: string) => void {
@@ -86,7 +87,7 @@ async function run(dir: string | undefined, options: CliOptions) {
       console.log("No marked nodes found.");
       return;
     }
-    const output = renderTree(tree);
+    const output = renderTree(tree, { includeRoot: options.includeRoot });
     console.log(output);
     if (copyToClipboard(output)) {
       console.error("Copied to clipboard.");
@@ -103,6 +104,7 @@ const cli = cac("meta-bonsai");
 cli
   .command("[dir]", "Scan a directory")
   .option("--ignore <pattern>", "Ignore paths (repeatable or comma-separated)")
+  .option("--include-root", "Include project root in output")
   .action((dir: string | undefined, options: CliOptions) => {
     run(dir, options).catch((error) => {
       const message = error instanceof Error ? error.message : String(error);

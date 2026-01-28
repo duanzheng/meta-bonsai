@@ -46,6 +46,38 @@ project
 
 Only `.ts`, `.tsx`, `.js`, `.jsx`, and `.vue` files are scanned for file-level marks.
 
+### Writing examples
+
+**`__meta.json` (directory)**
+
+Place it in the directory. Valid JSON; `desc` takes precedence over `name`:
+
+```json
+{ "desc": "core business" }
+```
+
+Or use `name` only:
+
+```json
+{ "name": "src" }
+```
+
+When both exist, `desc` is used: `{ "name": "src", "desc": "core business" }` → displays "core business".
+
+**`/** @meta ... \*/` (file)\*\*
+
+Must be at the **very beginning** of the file (no characters, including newlines, before `/**`). Only `.ts`, `.tsx`, `.js`, `.jsx`, and `.vue` are scanned:
+
+```
+/** @meta page entry */
+```
+
+```
+/** @meta entry */
+```
+
+If there is a newline or any content before the comment, it will not match.
+
 ## Library API
 
 Exports are available from the package root:

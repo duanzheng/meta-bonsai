@@ -48,7 +48,7 @@ Only `.ts`, `.tsx`, `.js`, `.jsx`, and `.vue` files are scanned for file-level m
 
 ### Writing examples
 
-**`__meta.json` (directory)**
+#### `__meta.json` (directory)
 
 Place it in the directory. Valid JSON; `desc` takes precedence over `name`:
 
@@ -64,7 +64,7 @@ Or use `name` only:
 
 When both exist, `desc` is used: `{ "name": "src", "desc": "core business" }` → displays "core business".
 
-**`/** @meta ... \*/` (file)\*\*
+#### `@meta` comment (file)
 
 Must be at the **very beginning** of the file (no characters, including newlines, before `/**`). Only `.ts`, `.tsx`, `.js`, `.jsx`, and `.vue` are scanned:
 
